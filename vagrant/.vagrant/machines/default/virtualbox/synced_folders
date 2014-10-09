@@ -1,0 +1,1 @@
+{"virtualbox":{"/home/vagrant/public_html":{"guestpath":"/home/vagrant/public_html","hostpath":"/Volumes/Data/Sites/csgl/www/laravel","disabled":false},"/vagrant":{"guestpath":"/vagrant","hostpath":"/Volumes/Data/Sites/csgl/www/vagrant","disabled":false}}}

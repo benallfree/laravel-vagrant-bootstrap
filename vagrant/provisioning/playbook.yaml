@@ -1,0 +1,8 @@
+---
+- hosts: all
+  user: vagrant
+  sudo: True
+  vars:
+    connections : "1"
+  tasks:
+    - include: tasks/setup-misc.yaml

@@ -1,0 +1,12 @@
+---
+  - name: update apt repo
+    action: command /usr/bin/apt-get update
+
+  - name: build LAMP stack
+    script: scripts/lamp.sh
+    
+  - name: site template
+    copy: src=templates/default_site.conf dest=/etc/apache2/sites-available/000-default.conf
+    
+  - name: restart apache
+    command: apache2ctl restart
