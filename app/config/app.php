@@ -123,6 +123,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
     'Frozennode\Administrator\AdministratorServiceProvider',
     'Bootstrapper\BootstrapperServiceProvider',
+    'Intervention\Image\ImageServiceProvider',
 	),
 
 	/*
@@ -213,6 +214,7 @@ return array(
     'Tabbable' => 'Bootstrapper\Facades\Tabbable',
     'Table' => 'Bootstrapper\Facades\Table',
     'Thumbnail' => 'Bootstrapper\Facades\Thumbnail',
+    'Image' => 'Intervention\Image\Facades\Image',
 	),
 
 );

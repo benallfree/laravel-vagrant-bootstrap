@@ -8,7 +8,9 @@
     "patricktalmadge/bootstrapper": "dev-develop",
     "frozennode/administrator": "dev-master",
 		"vlucas/phpdotenv": "dev-master",
-    "patricktalmadge/bootstrapper": "~5"
+    "patricktalmadge/bootstrapper": "~5",
+    "intervention/image": "2.*",
+    "intervention/imagecache": "dev-master"
 	},
   "require-dev": {
     "panique/laravel-sass": "dev-master"
