@@ -12,7 +12,7 @@
     command: apache2ctl restart
 
   - name: site template
-    copy: src=/home/vagrant/.env-sample dest=/home/vagrant/.env
+    command: cp /home/vagrant/public_html/.env-sample /home/vagrant/public_html/.env
     
   - name: insall dependencies
     command: cd /home/vagrant/public_html && composer install

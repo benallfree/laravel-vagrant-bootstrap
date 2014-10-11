@@ -3,32 +3,13 @@
 	"description": "The Laravel Framework.",
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "git@github.com:benallfree/phpdotenv.git"
-    },
-    {
-      "url": "git@github.com:benallfree/Laravel-Administrator.git",
-      "type": "vcs"
-    },
-    {
-        "type": "vcs",
-        "url": "https://github.com/benallfree/dflydev-apache-mime-types"
-    },
-    {
-      "type": "vcs",
-      "url": "git@github.com:benallfree/imgproxy.git"
-    }
-  ],
 	"require": {
 		"laravel/framework": "4.2.*",
-    "patricktalmadge/bootstrapper": "dev-develop",
-    "frozennode/administrator": "dev-master",
-		"vlucas/phpdotenv": "dev-master",
-    "patricktalmadge/bootstrapper": "~5",
-    "intervention/image": "2.*",
-    "intervention/imagecache": "dev-master"
+    "frozennode/administrator": "4.2.*",
+		"vlucas/phpdotenv": "1.0.*",
+    "patricktalmadge/bootstrapper": "5.1.*",
+    "intervention/image": "2.0.*",
+    "intervention/imagecache": "2.0.*"
 	},
   "require-dev": {
     "panique/laravel-sass": "dev-master"

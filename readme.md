@@ -1,4 +1,4 @@
-ommit # Features 
+# Features 
 
 * phpDotEnv
 * Database query logging
