@@ -1,16 +1,32 @@
-# CSGL Web Site - Vagrant
+# Laravel - Vagrant
 
-This guide will allow you to easily run CSGL web site on any operating system supported
-by Vagrant and VirtualBox.
+This guide will allow you to easily run Larravel on any operating system supported
+by Vagrant.
 
 ## Requirements
 * VirtualBox: http://www.virtualbox.org
 * Vagrant: http://www.vagrantup.com
 * Ansible: https://pypi.python.org/pypi/ansible/ . Install using `sudo pip install ansible`
 * (Preferebly) fast internet for initial setup
-* CSGL API (see vagrant/readme.md in that project for details)
 
-## Starting Vagrant
+## Using Digital Ocean
+If you want a public IP for your box, you can use Digital Ocean. It will cost about $5/mo.
+
+See https://github.com/smdahlen/vagrant-digitalocean for details.
+
+First, configure the `Vagrantfile` with your Personal API Token.
+
+Then, install the DO provider.
+
+    vagrant plugin install vagrant-digitalocean    
+
+Finally, provision a box.
+
+    vagrant up --provider=digital_ocean
+
+## Using VirtualBox
+VirtualBox is great for running local machines.
+
 Run the following command from `vagrant/` directory:
 
     vagrant up

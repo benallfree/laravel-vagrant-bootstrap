@@ -10,7 +10,7 @@
 
 export USERN=vagrant
 export MYSQLP=root
-export MYSQLDB=csgl_web_dev
+export MYSQLDB=laravel
 
 apt-get -y update
 debconf-set-selections <<< "mysql-server mysql-server/root_password password $MYSQLP"
