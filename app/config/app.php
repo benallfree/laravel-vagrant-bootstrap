@@ -124,6 +124,7 @@ return array(
     'Frozennode\Administrator\AdministratorServiceProvider',
     'Bootstrapper\BootstrapperServiceProvider',
     'Intervention\Image\ImageServiceProvider',
+    'Former\FormerServiceProvider',
 	),
 
 	/*
@@ -215,6 +216,8 @@ return array(
     'Table' => 'Bootstrapper\Facades\Table',
     'Thumbnail' => 'Bootstrapper\Facades\Thumbnail',
     'Image' => 'Intervention\Image\Facades\Image',
+    'Former' => 'Former\Facades\Former',
+    'Way\Generators\GeneratorsServiceProvider',
 	),
 
 );

@@ -9,7 +9,9 @@
 		"vlucas/phpdotenv": "1.0.*",
     "patricktalmadge/bootstrapper": "5.1.*",
     "intervention/image": "2.0.*",
-    "intervention/imagecache": "2.0.*"
+    "intervention/imagecache": "2.0.*",
+    "anahkiasen/former": "3.5.*",
+    "way/generators": "~2.0"
 	},
   "require-dev": {
     "panique/laravel-sass": "dev-master"
