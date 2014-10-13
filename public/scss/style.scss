@@ -77,3 +77,9 @@ body {
     border-bottom: 0;
   }
 }
+
+button, input, optgroup, select, textarea {
+  margin: 2px;
+  font: inherit;
+  color: inherit;
+}
