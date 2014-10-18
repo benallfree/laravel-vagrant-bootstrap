@@ -125,6 +125,7 @@ return array(
     'Bootstrapper\BootstrapperServiceProvider',
     'Intervention\Image\ImageServiceProvider',
     'Zizaco\Confide\ServiceProvider',
+    'Way\Generators\GeneratorsServiceProvider',
 	),
 
 	/*
