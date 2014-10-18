@@ -15,5 +15,5 @@
 </IfModule>
 
 # BEGIN (mt) controlled settings
-AddHandler php-latest .php
+# AddHandler php-latest .php
 # END (mt) controlled settings
