@@ -39,6 +39,10 @@
           if(Auth::check())
           {
             $links[] = [
+              'link'=>URL::route('users.profile'),
+              'title'=>'My Account',
+            ];
+            $links[] = [
               'link'=>URL::route('users.logout'),
               'title'=>'Log Out',
             ];

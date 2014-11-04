@@ -204,6 +204,28 @@ class UsersController extends Controller
 
   public function doProfile()
   {
+    $data = array_map('trim', Input::all());
+    $defaults = [
+      'seeking_gender_1'=>0,
+      'seeking_gender_2'=>0,
+      'seeking_gender_4'=>0,
+    ];
+    $data = array_merge($defaults, $data);
+
+    $rules = User::$rules;
+    $rules['seeking_geneder_1'] = 'required_without_all:seeking_gender_2,seeking_gender_4';
+    $rules['seeking_geneder_2'] = 'required_without_all:seeking_gender_1,seeking_gender_4';
+    $rules['seeking_geneder_4'] = 'required_without_all:seeking_gender_1,seeking_gender_2';
+    $data['seeking_gender'] = $data['seeking_gender_1'] | $data['seeking_gender_2'] | $data['seeking_gender_4'];
+
+		$validator = Validator::make($data, $rules);  
+		if ($validator->fails())
+    {
+      return Redirect::back()->withInput()->withErrors($validator);
+    } 
+    
+    Auth::user()->update($data);
+      
     return Redirect::action('home')->with(['notice'=>'Profile updated.']);
   }
 

@@ -21,12 +21,15 @@ class ConfideSetupUsersTable extends Migration
 
             # Profile
             $table->string('gender')->nullable();
+            $table->integer('zip')->nullable();
             $table->integer('age')->nullable();
             $table->string('seeking_gender')->nullable();
             $table->integer('seeking_age_min')->nullable();
             $table->integer('seeking_age_max')->nullable();
+            $table->integer('seeking_proximity')->nullable();
             
-            $table->timestamps();
+            $table->integer('created_at');
+            $table->integer('updated_at');
         });
 
         // Creates password reminders table
