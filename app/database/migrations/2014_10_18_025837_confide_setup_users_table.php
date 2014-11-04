@@ -18,6 +18,14 @@ class ConfideSetupUsersTable extends Migration
             $table->string('confirmation_code');
             $table->string('remember_token')->nullable();
             $table->boolean('confirmed')->default(false);
+
+            # Profile
+            $table->string('gender')->nullable();
+            $table->integer('age')->nullable();
+            $table->string('seeking_gender')->nullable();
+            $table->integer('seeking_age_min')->nullable();
+            $table->integer('seeking_age_max')->nullable();
+            
             $table->timestamps();
         });
 
