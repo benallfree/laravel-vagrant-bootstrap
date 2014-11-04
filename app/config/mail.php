@@ -119,6 +119,5 @@ return array(
 	|
 	*/
 
-	'pretend' => false,
-
+	'pretend' => !$_ENV['IS_MAIL_ENABLED'],
 );

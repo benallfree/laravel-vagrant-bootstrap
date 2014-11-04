@@ -11,7 +11,8 @@
     "intervention/image": "2.0.*",
     "intervention/imagecache": "2.0.*",
     "way/generators": "~2.0",
-    "zizaco/confide": "~4.0@dev"
+    "zizaco/confide": "~4.0@dev",
+    "flynsarmy/csv-seeder": "1.0.*"
 	},
   "require-dev": {
     "panique/laravel-sass": "dev-master"
@@ -28,7 +29,7 @@
 	},
 	"scripts": {
     "pre-update-cmd": [
-        "php artisan clear-compiled"
+      "php artisan clear-compiled"
     ],
 		"post-install-cmd": [
 			"php artisan clear-compiled",
