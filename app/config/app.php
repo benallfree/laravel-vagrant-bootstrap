@@ -126,6 +126,8 @@ return array(
     'Intervention\Image\ImageServiceProvider',
     'Zizaco\Confide\ServiceProvider',
     'Way\Generators\GeneratorsServiceProvider',
+    'AdamWathan\BootForms\BootFormsServiceProvider',
+    
 	),
 
 	/*
@@ -219,6 +221,8 @@ return array(
     'Image' => 'Intervention\Image\Facades\Image',
     'Way\Generators\GeneratorsServiceProvider',
     'Confide'    => 'Zizaco\Confide\Facade',
+    'BootForm' => 'AdamWathan\BootForms\Facades\BootForm',
+    
 	),
 
 );
