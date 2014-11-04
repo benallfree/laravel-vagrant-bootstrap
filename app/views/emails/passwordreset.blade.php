@@ -8,4 +8,4 @@
 </a>
 
 <p>Thank you very much!</p>
-<p>-The iVerify Team</p>
+<p>-The {{$_ENV['APP_NAME']}} Team</p>

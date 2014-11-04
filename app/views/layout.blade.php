@@ -48,7 +48,7 @@
               'title'=>'Log In',
             ];
           }
-          echo Navbar::withBrand('iVerify', '#')
+          echo Navbar::withBrand($_ENV['APP_NAME'], '#')
                 ->withContent(Navigation::links($links));
         ?>
       </div>
