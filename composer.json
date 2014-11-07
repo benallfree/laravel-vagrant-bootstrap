@@ -20,6 +20,7 @@
   },
   "autoload": {
     "classmap": [
+			"app/traits",
 			"app/classes",
       "app/commands",
       "app/controllers",

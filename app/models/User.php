@@ -6,6 +6,7 @@ use Zizaco\Confide\ConfideUserInterface;
 class User extends EloquentBase implements ConfideUserInterface
 {
   use ConfideUser;
+  use Timestampable;
   
   // Add your validation rules here
   public static $rules = [
@@ -35,8 +36,4 @@ class User extends EloquentBase implements ConfideUserInterface
     return true;
   }
   
-  protected function getDateFormat()
-  {
-      return 'U';
-  }    
 }
