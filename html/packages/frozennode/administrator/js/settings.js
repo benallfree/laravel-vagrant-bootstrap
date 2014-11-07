@@ -51,7 +51,7 @@
 			/* If custom actions are supplied, they are stored here
 			 * array
 			 */
-			actions: [],
+			actions: ko.observableArray(),
 
 			/* The languages array holds text for the current language
 			 * object
@@ -94,12 +94,12 @@
 
 							//update the model
 							self.updateData(response.data);
+
+							//update the custom actions
+							self.actions(response.actions);
 						}
 						else
-						{
-							var error = typeof response.errors == 'string' ? response.errors : response.errors.join(' ');
-							self.statusMessage(error).statusMessageType('error');
-						}
+							self.statusMessage(response.errors).statusMessageType('error');
 					}
 				});
 			},
@@ -109,10 +109,18 @@
 			 *
 			 * @param string	action
 			 * @param object	messages
+			 * @param string	confirmation
 			 */
-			customAction: function(action, messages)
+			customAction: function(action, messages, confirmation)
 			{
 				var self = this;
+
+				//if a confirmation string was supplied, flash it in a confirm()
+				if (confirmation)
+				{
+					if (!confirm(confirmation))
+						return false;
+				}
 
 				self.statusMessage(messages.active).statusMessageType('');
 				self.freezeForm(true);
@@ -129,11 +137,45 @@
 					success: function(response)
 					{
 						if (response.success)
+						{
 							self.statusMessage(messages.success).statusMessageType('success');
+
+							//update the custom actions
+							self.actions(response.actions);
+
+							// if this is a redirect, redirect the user to the supplied url
+							if (response.redirect)
+								window.location.href = response.redirect;
+
+							//if there was a file download initiated, redirect the user to the file download address
+							if (response.download)
+								self.downloadFile(response.download);
+						}
 						else
 							self.statusMessage(response.error).statusMessageType('error');
 					}
 				});
+			},
+
+			/**
+			 * Initiates a file download
+			 *
+			 * @param string	url
+			 */
+			downloadFile: function(url)
+			{
+				var hiddenIFrameId = 'hiddenDownloader',
+					iframe = document.getElementById(hiddenIFrameId);
+
+				if (iframe === null)
+				{
+					iframe = document.createElement('iframe');
+					iframe.id = hiddenIFrameId;
+					iframe.style.display = 'none';
+					document.body.appendChild(iframe);
+				}
+
+				iframe.src = url;
 			},
 
 			/**
@@ -172,7 +214,7 @@
 
 			this.viewModel.settingsName(adminData.name);
 			this.viewModel.settingsTitle(adminData.title);
-			this.viewModel.actions = adminData.actions;
+			this.viewModel.actions(adminData.actions);
 			this.viewModel.languages = adminData.languages;
 
 			//now that we have most of our data, we can set up the computed values

@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder {
     Eloquent::unguard();
 
     $this->call('UserTableSeeder');
+    $this->call('ProductTableSeeder');
   }
 
 }
@@ -32,6 +33,33 @@ class UserTableSeeder extends CsvSeeder {
     // DB::table($this->table)
     //   ->where('agent_email', '99999')
     //   ->update(['agent_email'=>null]);
+    
+  }
+}
+
+class ProductTableSeeder extends CsvSeeder {
+  public function __construct()
+  {
+    $this->table = 'products';
+    $this->filename = app_path().'/database/seeds/products.csv';
+  }
+
+  public function run()
+  {
+    DB::table($this->table)->truncate();
+    parent::run();
+    $nullable = [
+      'description',
+      'amazon_category',
+      'shipping_cost',
+      'amazon_rank',
+    ];
+    foreach($nullable as $field_name)
+    {
+      DB::table($this->table)
+        ->where($field_name, '=', '~')
+        ->update([$field_name=>null]);
+    }
     
   }
 }

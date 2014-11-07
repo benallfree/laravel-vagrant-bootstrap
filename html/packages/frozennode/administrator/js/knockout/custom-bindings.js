@@ -155,6 +155,12 @@
 				}
 			}
 
+			//make sure we're monitoring the change event for page resizing
+			$(element).on('change', function()
+			{
+				window.admin.resizePage();
+			});
+
 			setTimeout(function()
 			{
 				$(element).trigger('change');
@@ -201,7 +207,7 @@
 							});
 						}
 
-						return data;
+						return {fields: [data]};
 					},
 					results: function(returndata, page)
 					{
@@ -218,7 +224,7 @@
 						}
 
 						//iterate over the results and put them in the autocomplete array
-						$.each(returndata, function(ind, el)
+						$.each(returndata[options.field], function(ind, el)
 						{
 							data[el.id] = el;
 						});
@@ -226,7 +232,7 @@
 						admin.viewModel[options.field + '_autocomplete'] = data;
 
 						return {
-							results: returndata
+							results: returndata[options.field]
 						}
 					}
 				},
@@ -306,21 +312,20 @@
 			//else we will try to parse the number using the user-supplied thousands and decimal separators
 			else
 			{
-				floatVal = value.toString().split(options.thousandsSeparator).join('').split(options.decimalSeparator).join('.');
+				floatVal = parseFloat(value.toString().trim().split(options.thousandsSeparator).join('').split(options.decimalSeparator).join('.'));
 			}
 
 			//if the value is not a number, set the value equal to ''
 			if (isNaN(floatVal))
 			{
-				if (value !== '')
-				{
-					//if this is an uneditable field, set the text
-					if ($element.hasClass('uneditable'))
-						$element.text('');
-					//otherwise we know it's an input
-					else
-						$element.val('');
-				}
+				allBindingsAccessor().value(null);
+
+				//if this is an uneditable field, set the text
+				if ($element.hasClass('uneditable'))
+					$element.text('');
+				//otherwise we know it's an input
+				else
+					$element.val('');
 			}
 			//else set up the value up using the accounting library with the user-supplied separators
 			else
@@ -521,28 +526,30 @@
 		}
 	};
 
+	var editors = {};
+
 	/**
 	 * The wysiwyg binding makes the field a ckeditor wysiwyg
 	 */
 	ko.bindingHandlers.wysiwyg = {
 		init: function (element, valueAccessor, allBindingsAccessor, context)
 		{
-			var value = ko.utils.unwrapObservable(valueAccessor()),
-				$element = $(element);
+			var options = valueAccessor(),
+				value = ko.utils.unwrapObservable(options.value),
+				$element = $(element),
+				editor;
 
 			value = value ? value : '';
 
 			$element.html(value);
-			$element.ckeditor({ language : language });
 
-			var editor = $element.ckeditorGet();
-
-			//wire up the blur event to ensure our observable is properly updated
-			editor.focusManager.blur = function()
+			if (options.id in editors)
+				editor = editors[options.id];
+			else
 			{
-				var observable = valueAccessor();
-
-				observable($element.val());
+				$element.ckeditor({ language : language });
+				editor = $element.ckeditorGet();
+				editors[options.id] = editor;
 			}
 
 			//when the editor is loaded, we want to resize our page
@@ -551,17 +558,44 @@
 				setTimeout(function()
 				{
 					window.admin.resizePage();
-				}, 50)
-			})
+				}, 50);
 
-			editor.setData(value);
+				editor.on('resize', function()
+				{
+					window.admin.resizePage();
+				});
+			});
+
+			//wire up the blur event to ensure our observable is properly updated
+			editor.focusManager.blur = function()
+			{
+				var observable = valueAccessor().value,
+					$el = $('#' + options.id);
+
+				//set the blur attribute to true so we know now to set the editor data in the update method
+				$el.data('blur', true);
+
+				observable($el.val());
+			}
+
+			//handle destroying an editor (based on what jQuery plugin does)
+	        ko.utils.domNodeDisposal.addDisposeCallback(element, function (test) {
+	            var editor = editors[options.id];
+
+	            if (editor)
+	        	{
+		        	editor.destroy();
+		        	delete editors[options.id];
+	        	}
+	        });
 		},
 		update: function (element, valueAccessor, allBindingsAccessor, context)
 		{
 			//handle programmatic updates to the observable
-			var value = ko.utils.unwrapObservable(valueAccessor()),
+			var options = valueAccessor(),
+				value = ko.utils.unwrapObservable(options.value),
 				$element = $(element),
-				editor = $element.ckeditorGet();
+				editor = editors[options.id];
 
 			value = value ? value : '';
 
@@ -577,10 +611,14 @@
 				setTimeout(function()
 				{
 					$element.html(value);
-					editor.setData(value);
+
+					if ($element.data('blur'))
+						$element.removeData('blur');
+					else
+						editor.setData(value);
+
 				}, 50);
 			}
-
 		}
 	};
 
@@ -633,6 +671,8 @@
 
 			viewModel[cacheName].bind('FilesAdded', function(up, files) {
 
+				viewModel.freezeActions(true);
+
 				$(files).each(function(i, file) {
 					//parent.uploader.removeFile(file);
 
@@ -663,7 +703,7 @@
 					viewModel[options.field](data.filename);
 				} else {
 					//error
-					alert(data.errors.messages.file[0]);
+					alert(data.errors);
 				}
 
 				setTimeout(function()
@@ -671,6 +711,7 @@
 					viewModel[cacheName].splice();
 					viewModel[cacheName].refresh();
 					$('div.plupload').css('z-index', 71);
+					viewModel.freezeActions(false);
 					admin.resizePage();
 				}, 200);
 			});

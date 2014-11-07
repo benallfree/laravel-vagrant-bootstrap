@@ -5,9 +5,9 @@
   "license": "MIT",
   "require": {
     "laravel/framework": "4.2.*",
-    "frozennode/administrator": "4.2.*",
+    "frozennode/administrator": "4.*",
     "vlucas/phpdotenv": "1.0.*",
-    "patricktalmadge/bootstrapper": "5.1.*",
+    "patricktalmadge/bootstrapper": "5.*",
     "intervention/image": "2.0.*",
     "intervention/imagecache": "2.0.*",
     "way/generators": "~2.0",

@@ -51,7 +51,7 @@ return array(
 	 *	)
 	 */
 	'menu' => array(
-	  'Sample'=>array(),
+	  'products',
 	),
 
 	/**
@@ -62,8 +62,7 @@ return array(
 	 */
 	'permission'=> function()
 	{
-		return true;
-    //Auth::check();
+    return Auth::check();
 	},
 
 	/**
@@ -86,7 +85,7 @@ return array(
 	 *
 	 * @type string
 	 */
-	'home_page' => '',
+	'home_page' => 'products',
 
 	/**
 	 * The route to which the user will be taken when they click the "back to site" button
@@ -100,7 +99,7 @@ return array(
 	 *
 	 * @type string
 	 */
-	'login_path' => 'user/login',
+	'login_path' => 'users/login',
 
 	/**
 	 * The logout path is the path where Administrator will send the user when they click the logout link
