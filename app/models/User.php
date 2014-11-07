@@ -34,4 +34,9 @@ class User extends EloquentBase implements ConfideUserInterface
 		if ($validator->fails()) return false;
     return true;
   }
+  
+  protected function getDateFormat()
+  {
+      return 'U';
+  }    
 }
