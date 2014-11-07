@@ -38,10 +38,13 @@
           ];
           if(Auth::check())
           {
-            $links[] = [
-              'link'=>URL::route('users.profile'),
-              'title'=>'My Account',
-            ];
+            if($_ENV['ENABLE_USER_PROFILE'])
+            {
+              $links[] = [
+                'link'=>URL::route('users.profile'),
+                'title'=>'My Account',
+              ];
+            }
             $links[] = [
               'link'=>URL::route('users.logout'),
               'title'=>'Log Out',
